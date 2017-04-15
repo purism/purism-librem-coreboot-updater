@@ -21,11 +21,11 @@ LOGFILE="${TEMPDIR}/install.log"
 
 DMIDECODE='dmidecode'
 FLASHROM="flashrom"
-CBFSTOOL="/usr/share/purism-librem-coreboot-updater/cbfstool"
-RMODTOOL="/usr/share/purism-librem-coreboot-updater/rmodtool"
-IFDTOOL="/usr/share/purism-librem-coreboot-updater/ifdtool"
-UEFIEXTRACT="/usr/share/purism-librem-coreboot-updater/UEFIExtract"
-ME_CLEANER="/usr/share/purism-librem-coreboot-updater/me_cleaner.py"
+CBFSTOOL="/usr/bin/cbfstool"
+RMODTOOL="/usr/bin/rmodtool"
+IFDTOOL="/usr/bin/ifdtool"
+UEFIEXTRACT="/usr/bin/UEFIExtract"
+ME_CLEANER="/usr/bin/me_cleaner"
 
 FLASHROM_PROGRAMMER="-pinternal:laptop=force_I_want_a_brick"
 TIDUS_ZIP_FILENAME='chromeos_8743.85.0_tidus_recovery_stable-channel_mp-v2.bin.zip'
