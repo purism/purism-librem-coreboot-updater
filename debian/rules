@@ -1,0 +1,10 @@
+#!/usr/bin/make -f
+
+INSTALLDIR:=$(CURDIR)/debian/purism-librem-coreboot-updater
+
+%:
+	dh $@
+
+override_dh_auto_install:
+	mkdir -p $(INSTALLDIR)/usr/sbin/
+	cp purism-librem-coreboot-updater.sh $(INSTALLDIR)/usr/sbin/purism-librem-coreboot-updater

@@ -1,0 +1,24 @@
+Source: purism-librem-coreboot-updater
+Section: admin
+Priority: optional
+Maintainer: Matthias Klumpp <matthias.klumpp@puri.sm>
+Build-Depends: debhelper (>= 10)
+Standards-Version: 3.9.8
+
+Package: purism-librem-coreboot-updater
+Architecture: all
+Depends: bzip2,
+         coreboot-utils,
+         curl,
+         dmidecode,
+         flashrom,
+         me-cleaner,
+         parted,
+         sharutils,
+         uefitool-utils,
+         unzip,
+         ${misc:Depends}
+Description: Build & flash coreboot on Purism Librem devices
+ This package contains a tool that downloads and/or extracts all the
+ required  components for Coreboot to work on Purism Librem 13 v1 laptops,
+ builds the final coreboot flash image, and flashes it.

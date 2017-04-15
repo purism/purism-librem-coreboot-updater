@@ -1,0 +1,5 @@
+purism-librem-coreboot-updater (0.1) UNRELEASED; urgency=medium
+
+  * Initial release for PureOS.
+
+ -- Matthias Klumpp <matthias.klumpp@puri.sm>  Sat, 15 Apr 2017 20:16:08 +0200
