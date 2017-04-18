@@ -615,13 +615,11 @@ apply_config_options() {
         cat > bootorder.txt <<EOF
 /pci@i0cf8/*@1f,2/drive@3/disk@0
 /pci@i0cf8/*@1f,2/drive@0/disk@0
-/rom@img/memtest
 EOF
     else
         cat > bootorder.txt <<EOF
 /pci@i0cf8/*@1f,2/drive@0/disk@0
 /pci@i0cf8/*@1f,2/drive@3/disk@0
-/rom@img/memtest
 EOF
     fi
     ${CBFSTOOL} ${COREBOOT_FINAL_IMAGE} remove -n bootorder > ${TEMPDIR}/cbfstool_remove_bootorder.log 2>&1
