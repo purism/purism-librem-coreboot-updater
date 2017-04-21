@@ -376,7 +376,7 @@ get_vgabios_binary() {
     log "Extracting VGA BIOS image: ${VGABIOS_FILENAME}"
     if [ "$VENDOR" == "1" ]; then
         ${UEFIEXTRACT} ${ORIG_FILENAME} > ${TEMPDIR}/uefiextract.log 2>&1 || die "Unable to extract vgabios file"
-        cp "${ORIG_FILENAME}.dump/2 BIOS region/2 8C8CE578-8A3D-4F1C-9935-896185C32DD3/2 9E21FD93-9C72-4C15-8C4B-E77F1DB2D792/0 EE4E5898-3914-4259-9D6E-DC7BD79403CF/1 Volume image section/0 8C8CE578-8A3D-4F1C-9935-896185C32DD3/237 A0327FE0-1FDA-4E5B-905D-B510C45A61D0/0 EE4E5898-3914-4259-9D6E-DC7BD79403CF/1 C5A4306E-E247-4ECD-A9D8-5B1985D3DCDA/body.bin" ${VGABIOS_FILENAME}
+        cp "$(find ${ORIG_FILENAME}.dump -name '* C5A4306E-E247-4ECD-A9D8-5B1985D3DCDA')/body.bin" ${VGABIOS_FILENAME}
         rm -rf "${ORIG_FILENAME}.dump"
     else
         ${CBFSTOOL} $ORIG_FILENAME extract -n "pci8086,1616.rom" -f ${VGABIOS_FILENAME} > ${TEMPDIR}/cbfstool_vgabios.log 2>&1 || die "Unable to extract vgabios file"
