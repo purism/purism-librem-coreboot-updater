@@ -177,6 +177,14 @@ check_machine() {
     cd "${CACHE_DIR}"
 }
 
+check_efi() {
+    if [ -d /sys/firmware/efi ]; then
+        log '**** This system was booted in EFI mode. **** '
+        log '**** It will become unbootable after installing Coreboot ****'
+        log '**** Refer to https://help.ubuntu.com/community/UEFI#Converting_Ubuntu_into_Legacy_mode ****'
+        die '**** Re-run this script after you boot into BIOS/Legacy mode ****'
+    fi
+}
 backup_original_rom() {
     log "Making a backup copy of your current BIOS. Please wait..."
     if [ -f "${ORIG_FILENAME}" ]; then
@@ -775,6 +783,7 @@ welcome_msg
 check_root
 check_dependencies
 check_machine
+check_efi
 check_battery
 backup_original_rom
 get_required_binaries
