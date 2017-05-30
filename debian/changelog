@@ -1,3 +1,15 @@
+purism-librem-coreboot-updater (0.2) green; urgency=medium
+
+  [ Youness Alaoui ]
+  * Update base to enable NVMe PCIe
+  * Remove memtest from boot order, so it boots USB instead for example
+  * Add NVMe devices as SSD device in bootorder
+  * Update sha1 of coreboot base to include nvme-compatible seabios
+  * Do not hardcode path to vgabios in uefiextract-ed bios
+  * Add an EFI check
+
+ -- Matthias Klumpp <matthias.klumpp@puri.sm>  Tue, 30 May 2017 23:38:54 +0200
+
 purism-librem-coreboot-updater (0.1) green; urgency=medium
 
   * Initial release for PureOS.
