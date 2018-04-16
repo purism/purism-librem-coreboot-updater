@@ -108,7 +108,7 @@ check_root() {
 check_dependency () {
     local name=$1
     local cmd=$2
-    
+
     if type $cmd &> ${LOGFILE}; then
         log "$name: yes"
     else
@@ -202,7 +202,7 @@ backup_original_rom() {
         die ""
     fi
     ${FLASHROM} -V ${FLASHROM_PROGRAMMER} ${FLASHROM_ARGS} -r ${ORIG_FILENAME} >& ${TEMPDIR}/flashrom_read.log || die "Unable to dump original BIOS from your flash"
-    
+
     log "Your current BIOS has been backed up to the file '${ORIG_FILENAME}'"
     log ""
 }
@@ -277,15 +277,15 @@ get_tidus_partition () {
         local SIZE=''
 
         get_tidus_recovery
-	log "Extracting ROOT-A partition"
-	ROOTP=$( printf "unit\nB\nprint\nquit\n" | \
-		 parted ${TIDUS_BIN_FILENAME} 2> ${TEMPDIR}/parted.log | grep "ROOT-A" )
+        log "Extracting ROOT-A partition"
+        ROOTP=$( printf "unit\nB\nprint\nquit\n" | \
+                 parted ${TIDUS_BIN_FILENAME} 2> ${TEMPDIR}/parted.log | grep "ROOT-A" )
 
-	START=$(( $( echo $ROOTP | cut -f2 -d\ | tr -d "B" ) ))
-	SIZE=$(( $( echo $ROOTP | cut -f4 -d\ | tr -d "B" ) ))
+        START=$(( $( echo $ROOTP | cut -f2 -d\ | tr -d "B" ) ))
+        SIZE=$(( $( echo $ROOTP | cut -f4 -d\ | tr -d "B" ) ))
 
-	dd if=${TIDUS_BIN_FILENAME} of=$file bs=$_bs skip=$(( $START / $_bs )) \
-	   count=$(( $SIZE / $_bs ))  > ${TEMPDIR}/dd.log 2>&1
+        dd if=${TIDUS_BIN_FILENAME} of=$file bs=$_bs skip=$(( $START / $_bs )) \
+           count=$(( $SIZE / $_bs ))  > ${TEMPDIR}/dd.log 2>&1
 
         if ! check_file_sha1 "$file" "$sha1" ; then
             log "The extracted partition failed to match the expected file hash."
@@ -302,9 +302,9 @@ get_tidus_shellball () {
         log "Tidus Chromebook Firmware update Shell script already extracted"
     else
         get_tidus_partition
-	log 'Extracting chromeos-firmwareupdate'
-	printf "cd /usr/sbin\ndump chromeos-firmwareupdate ${TIDUS_SHELLBALL_FILENAME}\nquit" | \
-		debugfs ${TIDUS_ROOTA_FILENAME} > ${TEMPDIR}/debugfs.log 2>&1
+        log 'Extracting chromeos-firmwareupdate'
+        printf "cd /usr/sbin\ndump chromeos-firmwareupdate ${TIDUS_SHELLBALL_FILENAME}\nquit" | \
+                debugfs ${TIDUS_ROOTA_FILENAME} > ${TEMPDIR}/debugfs.log 2>&1
         if ! check_file_sha1 "$file" "$sha1" 1 ; then
             log "The extracted shell script failed to match the expected file hash."
             die "Aborting the operation to prevent corruption of your BIOS"
@@ -334,16 +334,16 @@ get_tidus_coreboot () {
         log "Tidus Chromebook coreboot image already extracted"
     else
         get_tidus_shellball
-        
-	log 'Extracting coreboot image'
+
+        log 'Extracting coreboot image'
         extract_bios_from_shellball ${TIDUS_SHELLBALL_FILENAME} $file
-        
+
         if ! check_file_sha1 "$file" "$sha1" 1 ; then
             log "The coreboot image failed to match the expected file hash."
             die "Aborting the operation to prevent corruption of your BIOS"
         fi
         rm -f ${TIDUS_SHELLBALL_FILENAME}
-    fi        
+    fi
 }
 
 get_mrc_binary() {
@@ -492,7 +492,7 @@ configuration_wizard() {
             echo "Invalid choice"
         fi
     done
-   
+
     clear
     echo "Select the default order in which devices will attempt booting:"
     echo "1 - Boot order: M.2 SSD disk first, 2.5\" SATA disk second"
@@ -510,7 +510,7 @@ configuration_wizard() {
             echo "Invalid choice"
         fi
     done
-    
+
     clear
     echo "Select whether to include Memtest86+ in the Boot menu choices: "
     echo "1 - Include Memtest86+ as a boot option"
@@ -539,14 +539,14 @@ configuration_wizard() {
             delay=2500
         fi
         case $delay in
-            ''|*[!0-9]*) 
+            ''|*[!0-9]*)
                 echo "Invalid choice: Not a positive number"
                 delay=-1
                 ;;
             *) ;;
         esac
     done
-    
+
     clear
     log "Summary of your choices:"
     if [ "$intel_me" == "1" ]; then
@@ -649,7 +649,7 @@ check_battery() {
     local capacity=$(cat /sys/class/power_supply/BAT*/capacity 2>/dev/null || echo -ne "0")
     local online=$(cat /sys/class/power_supply/AC/online 2>/dev/null || cat /sys/class/power_supply/ADP*/online 2>/dev/null || echo -ne "0")
     local failed=0
-    
+
 
     if [ "${online}" == "0" ] ; then
         log "Please connect your Librem computer to the AC adapter"
@@ -685,7 +685,7 @@ flashrom_progress() {
     local progressbar=''
     local progressbar2=$(for ((i=0; i < 49; i++)) do echo -ne ' ' ; done)
     local status='init'
-   
+
     echo "Initializing internal Flash Programmer"
     while [ 1 ]; do
         read -d' ' IN || break
@@ -764,7 +764,7 @@ flash_coreboot() {
             exit 1
         fi
     fi
-    
+
     log 'Congratulations! You now have coreboot installed on your machine'
     log 'You can now reboot your computer and enjoy increased security and freedom.'
     log 'Keep an eye on https://puri.sm/news/ for any potential future coreboot updates.'
